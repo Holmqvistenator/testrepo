@@ -1,8 +1,5 @@
 #!/bin/bash
 #
-# $Id: blockSshByIP.sh 700 2013-03-08 15:17:49Z svn $
-# $HeadURL: svn+getenv://svn@bbohm.it.su.se/get_env/test/scripts/blockSshByIP.sh $
-#
 # To be run from cron as root:
 # */2 * * * *     root /home/spetz/svn/get_env/stable/scripts/blockSshByIP.sh  
 # Set this variable for the number of failed attempts from an ip
