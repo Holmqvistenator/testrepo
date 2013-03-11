@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # To be run from cron as root:
-# */2 * * * *     root /home/spetz/svn/get_env/stable/scripts/blockSshByIP.sh  
+# */2 * * * *     root PATH_TO_SCRIPT/blockSshByIP.sh  
 # Set this variable for the number of failed attempts from an ip
 
 myName=$(basename $0 .sh)
