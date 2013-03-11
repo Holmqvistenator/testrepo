@@ -97,14 +97,14 @@ blockIp() {
 		        else
 				db "Blocking $ip"
 		                logger -p authpriv.notice "*** Blocked SSH attempt from: $ip"
-		                CMD="/sbin/iptables -A INPUT -s $ip -p tcp --dport 22 -j DROP"
+		                cmd="/sbin/iptables -A INPUT -s $ip -p tcp --dport 22 -j DROP"
 				if [ ! -z $saveFile ]; then
-					echo "$CMD # $date  $MESS">> $saveFile
+					echo "$cmd # $date  $MESS">> $saveFile
 				fi
 				if [ ! -z $mailto ]; then
-					echo "$CMD # $date  $MESS">> $mailBody
+					echo "$cmd # $date  $MESS">> $mailBody
 				fi
-				eval $CMD
+				eval $cmd
 		        fi
 		fi
 	done
