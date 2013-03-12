@@ -109,14 +109,19 @@ blockIp() {
 
 
 
+# grep 'Invalid user' $logfile | cut -d\  -f6- | sort --key=5 -n | tee -a $mailLine | egrep -o '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | uniq -c | blockIp "Invalid user"
 grep 'Invalid user' $logfile | awk '{print $10}' |sort | uniq -c | blockIp "Invalid user"
 
+# grep 'Failed password for invalid user' $logfile | cut -d\  -f6-13 | sort --key=8 -n | tee -a $mailLine | egrep -o '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | uniq -c | blockIp "Failed password for invalid user"
 grep 'Failed password for invalid user' $logfile | awk '{print $13}' |sort | uniq -c | blockIp "Failed password for"
 
+# grep 'Failed password for' $logfile | grep -v 'invalid' | cut -d\  -f6-11 | sort --key=6 -n | tee -a $mailLine  | egrep -o '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | uniq -c | blockIp "Failed password for valid user"
 grep 'Failed password for' $logfile | grep -v 'invalid' |awk '{print $11}' |sort | uniq -c | blockIp "Failed password for valid user"
 
+# grep 'not listed in AllowUsers' $logfile | cut -d\  -f6- | sort --key=4 -n | tee -a $mailLine | egrep -o '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | uniq -c | blockIp "Not listed in AllowUsers"
 grep 'not listed in AllowUsers' $logfile | awk '{print $9}' |sort | uniq -c | blockIp "Not listed in AllowUsers"
 
+# grep 'reverse mapping checking getaddrinfo for' $logfile | cut -d\  -f6-13 | sort --key=7 -n | tee -a $mailLine | egrep -o '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | uniq -c | blockIp "Reverse mapping checking getaddrinfo"
 grep 'reverse mapping checking getaddrinfo for' $logfile |  awk -F '[' '{print $3}' |awk -F ']' '{print $1}' |sort | uniq -c | blockIp "Reverse mapping checking getaddrinfo"
 
 if [ ! -z $mailto ];then
