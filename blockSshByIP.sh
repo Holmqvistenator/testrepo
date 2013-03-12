@@ -109,19 +109,14 @@ blockIp() {
 
 
 
-db "grep 1"
 grep 'Invalid user' $logfile | awk '{print $10}' |sort | uniq -c | blockIp "Invalid user"
 
-db "grep 2"
 grep 'Failed password for invalid user' $logfile | awk '{print $13}' |sort | uniq -c | blockIp "Failed password for"
 
-db "grep 3"
 grep 'Failed password for' $logfile | grep -v 'invalid' |awk '{print $11}' |sort | uniq -c | blockIp "Failed password for valid user"
 
-db "grep 4"
 grep 'not listed in AllowUsers' $logfile | awk '{print $9}' |sort | uniq -c | blockIp "Not listed in AllowUsers"
 
-db "grep 5"
 grep 'reverse mapping checking getaddrinfo for' $logfile |  awk -F '[' '{print $3}' |awk -F ']' '{print $1}' |sort | uniq -c | blockIp "Reverse mapping checking getaddrinfo"
 
 if [ ! -z $mailto ];then
