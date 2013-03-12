@@ -1,10 +1,7 @@
 #!/bin/bash
 #
-# $Id: blockSshByIP.sh 700 2013-03-08 15:17:49Z svn $
-# $HeadURL: svn+getenv://svn@bbohm.it.su.se/get_env/test/scripts/blockSshByIP.sh $
-#
 # To be run from cron as root:
-# */2 * * * *     root /home/spetz/svn/get_env/stable/scripts/blockSshByIP.sh  
+# */2 * * * *     root PATH_TO_SCRIPT/blockSshByIP.sh  
 # Set this variable for the number of failed attempts from an ip
 
 myName=$(basename $0 .sh)
@@ -97,14 +94,14 @@ blockIp() {
 		        else
 				db "Blocking $ip"
 		                logger -p authpriv.notice "*** Blocked SSH attempt from: $ip"
-		                CMD="/sbin/iptables -A INPUT -s $ip -p tcp --dport 22 -j DROP"
+		                cmd="/sbin/iptables -A INPUT -s $ip -p tcp --dport 22 -j DROP"
 				if [ ! -z $saveFile ]; then
-					echo "$CMD # $date  $MESS">> $saveFile
+					echo "$cmd # $date  $MESS">> $saveFile
 				fi
 				if [ ! -z $mailto ]; then
-					echo "$CMD # $date  $MESS">> $mailBody
+					echo "$cmd # $date  $MESS">> $mailBody
 				fi
-				eval $CMD
+				eval $cmd
 		        fi
 		fi
 	done
