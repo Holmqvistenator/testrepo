@@ -126,7 +126,7 @@ grep 'reverse mapping checking getaddrinfo for' $logfile |  awk -F '[' '{print $
 
 if [ ! -z $mailto ];then
 	if [ $(wc -l $mailBody | awk '{print $1}') -gt 0 ];then
-		cat $mailBody | mail -s "$myName newly blocked addresses" $mailto
+		cat $mailBody $mailLine| mail -s "$myName newly blocked addresses" $mailto
 	fi
 fi
 
