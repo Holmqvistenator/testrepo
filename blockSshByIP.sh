@@ -103,6 +103,9 @@ blockIp() {
 					if [ ! -z $mailto ]; then
 						echo "$cmd # $date  $MESS">> $mailBody
 					fi
+					if [ ! -z $mailLine ]; then
+						grep $ip $mailLine >> $mailBody
+					fi
 				fi
 		        fi
 		fi
