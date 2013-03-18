@@ -95,13 +95,15 @@ blockIp() {
 				db "Blocking $ip"
 		                logger -p authpriv.notice "*** Blocked SSH attempt from: $ip"
 		                cmd="/sbin/iptables -A INPUT -s $ip -p tcp --dport 22 -j DROP"
-				if [ ! -z $saveFile ]; then
-					echo "$cmd # $date  $MESS">> $saveFile
-				fi
-				if [ ! -z $mailto ]; then
-					echo "$cmd # $date  $MESS">> $mailBody
-				fi
 				eval $cmd
+		       		if [ $? -eq 0 ]; then
+					if [ ! -z $saveFile ]; then
+						echo "$cmd # $date  $MESS">> $saveFile
+					fi
+					if [ ! -z $mailto ]; then
+						echo "$cmd # $date  $MESS">> $mailBody
+					fi
+				fi
 		        fi
 		fi
 	done
@@ -126,7 +128,7 @@ grep 'reverse mapping checking getaddrinfo for' $logfile | cut -d\  -f6-13 | sor
 
 if [ ! -z $mailto ];then
 	if [ $(wc -l $mailBody | awk '{print $1}') -gt 0 ];then
-		cat $mailBody $mailLine| mail -s "$myName newly blocked addresses" $mailto
+		cat $mailBody | mail -s "$myName newly blocked addresses" $mailto
 	fi
 fi
 
