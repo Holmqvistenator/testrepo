@@ -10,12 +10,7 @@ mailLine=$(mktemp /tmp/$myName.mailLine.XXXXXX)
 globalIgnore="79.99.3.198 130.237.168.229 92.244.30.210 130.237.95.227"
 date=$(date +'%Y-%m-%dT%H:%M:%S')
 
-# Debug function
-db() {
-	if [ X"$debug" != X"" ];then
-		echo $*
-	fi
-}
+# Test remove
  
 # Source conffile if exists, else use defaults
 if [ ! -f /etc/${myName}.conf ]; then
